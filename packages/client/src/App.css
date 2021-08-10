@@ -1,38 +1,42 @@
+:root {
+  --dark-green: hsl(147, 26%, 27%);
+  --green: hsl(148, 26%, 48%);
+  --light-green: hsl(149, 34%, 88%);
+  --white: hsl(0, 0%, 100%);
+  --space: 20px;
+  --color: hsl(0, 0%, 20%);
+  --color-focus: hsl(0, 0%, 50%);
+  --transition: all 0.2s ease-out;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1;
+  color: var(--color);
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.4px;
 }
