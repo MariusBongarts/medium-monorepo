@@ -1,0 +1,17 @@
+{
+  "name": "@mariusbongarts/medium-monorepo-shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}

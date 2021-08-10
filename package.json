@@ -1,0 +1,22 @@
+{
+  "name": "medium-monorepo",
+  "description": "Mono-respository with React client, express server and shared typescript module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Marius Bongarts",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "yarn workspaces foreach -pi run start",
+    "build": "yarn workspaces foreach -pti run build",
+    "start:server": "yarn workspace @mariusbongarts/medium-monorepo-server run start",
+    "start:client": "yarn workspace @mariusbongarts/medium-monorepo-client run start",
+    "start:shared": "yarn workspace @mariusbongarts/medium-monorepo-shared run start"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "packageManager": "yarn@3.0.0"
+}
