@@ -36,13 +36,6 @@ export const PasswordStrength = () => {
   };
 
   useEffect(() => {
-    const buttonElement = document.querySelector(".submit-btn");
-    buttonElement?.addEventListener("click", async () => {
-      await submit();
-    });
-  }, []);
-
-  useEffect(() => {
     updateValidationResults(password);
   }, [password]);
 

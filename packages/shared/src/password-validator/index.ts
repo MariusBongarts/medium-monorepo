@@ -26,7 +26,7 @@ export const validationRules: ValidationRule[] = [
   },
   {
     id: "minChar",
-    name: "More than 7 characters",
+    name: "At least 8 characters",
     check: (value: string) => value.length >= 8,
   },
 ];
