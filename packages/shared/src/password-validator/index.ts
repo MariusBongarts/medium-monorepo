@@ -26,7 +26,7 @@ export const validationRules: ValidationRule[] = [
   },
   {
     id: "minChar",
-    name: "More than 8 characters",
+    name: "More than 7 characters",
     check: (value: string) => value.length >= 8,
   },
 ];
@@ -40,4 +40,10 @@ function ruleToResultMapper(
 
 export function validatePassword(password: string): ValidationResult[] {
   return validationRules.map((rule) => ruleToResultMapper(rule, password));
+}
+
+export function allRulesAreValid(validationResults: ValidationResult[]) {
+  return validationResults
+    .map((result) => result.valid)
+    .reduce((valid1, valid2) => valid1 && valid2);
 }

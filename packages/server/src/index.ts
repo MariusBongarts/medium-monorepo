@@ -8,11 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", async (_req: express.Request, res: express.Response) => {
-  console.log(_req);
-  console.log(validatePassword("dhiohsaiodh"));
-  const passwordIsValid = validatePassword("dhiohsaiodh");
-  res.json(passwordIsValid);
+app.post("/", async (req: express.Request, res: express.Response) => {
+  const validationResults = validatePassword(req.body.password);
+  res.json(validationResults);
 });
 
 app.listen(port, () =>

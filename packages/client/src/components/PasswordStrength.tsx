@@ -3,31 +3,48 @@ design: https://dribbble.com/shots/7259090-Password-Validation
 design by Neven Solidov.
 */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./PasswordStrength.css";
 import {
   validatePassword,
   ValidationResult,
+  allRulesAreValid,
 } from "@mariusbongarts/medium-monorepo-shared";
-
-const bg =
-  "https://raw.githubusercontent.com/erenesto/interactive-password-validator/d4344fd1a7620393a18d18a17ffb9dcf95f6887f/src/assets/bg.svg";
+import { passwordService } from "../services/password-service";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 const lockIcon = {
   open: "0h-3v2h4a2",
   closed: "0v2h1a2",
 };
 
+const ANIMATION_TIMEOUT_MILLIS = 700;
+
 export const PasswordStrength = () => {
   const [lock, setLock] = useState(lockIcon.open);
   const [isLocked, setIsLocked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
   const [validationResults, setValidationResults] = useState<
     ValidationResult[]
-  >(validatePassword(""));
+  >(validatePassword(password));
+  const [serverValidationResults, setServerValidationResults] =
+    useState<ValidationResult[]>();
 
   const handleChange = (e: any) => {
-    updateValidationResults(e.target.value.trim());
+    setPassword(e.target.value.trim());
   };
+
+  useEffect(() => {
+    const buttonElement = document.querySelector(".submit-btn");
+    buttonElement?.addEventListener("click", async () => {
+      await submit();
+    });
+  }, []);
+
+  useEffect(() => {
+    updateValidationResults(password);
+  }, [password]);
 
   const updateValidationResults = (value: string) => {
     const validationResults = validatePassword(value);
@@ -35,33 +52,53 @@ export const PasswordStrength = () => {
   };
 
   useEffect(() => {
-    const allRulesAreValid = validationResults
-      .map((result) => result.valid)
-      .reduce((valid1, valid2) => valid1 && valid2);
-
-    setIsLocked(allRulesAreValid);
+    setIsLocked(allRulesAreValid(validationResults));
   }, [validationResults]);
+
+  const submit = async () => {
+    setServerValidationResults(undefined);
+    setLoading(true);
+    const validationResults = await passwordService.checkPassword(password);
+    // Add a timeout for some loading animation
+    setTimeout(() => {
+      setLoading(false);
+      setServerValidationResults(validationResults);
+    }, ANIMATION_TIMEOUT_MILLIS);
+  };
 
   useEffect(() => {
     if (isLocked) {
       const timeout = setTimeout(() => {
         setLock(lockIcon.closed);
-      }, 700);
+      }, ANIMATION_TIMEOUT_MILLIS);
       return () => clearTimeout(timeout);
     } else {
+      setServerValidationResults(undefined);
       setLock(lockIcon.open);
     }
   }, [isLocked]);
 
   return (
-    <div className="App" style={{ backgroundImage: `url(${bg})` }}>
+    <div className="App">
       <div className="form-box">
         <ValidationItems validationResults={validationResults} />
         <FormField
           lock={lock}
           handleChange={handleChange}
           isLocked={isLocked}
+          value={password}
         />
+        <button className="submit-btn" disabled={!isLocked} onClick={submit}>
+          Submit
+        </button>
+        {loading && (
+          <div className="validation-box loading-spinner-wrapper">
+            <LoadingSpinner />
+          </div>
+        )}
+        {serverValidationResults && (
+          <ValidationItems validationResults={serverValidationResults} />
+        )}
       </div>
       <a
         className="github-button"
@@ -118,11 +155,11 @@ const ValidationItems = ({
   </ul>
 );
 
-const FormField = ({ lock, handleChange, isLocked }: any) => {
+const FormField = ({ lock, handleChange, isLocked, value }: any) => {
   return (
     <div className="form-field">
       <input
-        className="form-input"
+        className={`form-input ${value?.length ? "filled" : ""}`}
         id="password"
         type="password"
         onChange={handleChange}
