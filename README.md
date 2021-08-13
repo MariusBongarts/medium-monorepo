@@ -20,7 +20,6 @@
    `yarn plugin import workspace-tools`
 4. ##### Add nodelinker to `.yarnrc.yml`
    `nodeLinker: node-modules`
-5. ##### Add .gitignore
 
 
 
