@@ -1,3 +1,8 @@
+## Medium article
+
+Repository for medium article [Share Code between React Client and Express Server](https://javascript.plainenglish.io/share-code-between-react-client-and-express-server-5dc0977faa76).
+
+
 # Demo
 
 ![React App (1)](https://user-images.githubusercontent.com/38838885/129088399-0e971e5d-be60-4dce-9592-7289b8271a8c.gif)
