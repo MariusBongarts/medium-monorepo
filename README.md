@@ -10,7 +10,7 @@
    `yarn start`
 
 
-# How to set up a monorepo with yarn workspaces
+# Share Code between React Client and Express Server
 
 1. ##### Create a package
    `yarn init --yes`
