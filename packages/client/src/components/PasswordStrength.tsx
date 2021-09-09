@@ -95,7 +95,7 @@ export const PasswordStrength = () => {
       </div>
       <a
         className="github-button"
-        href="https://github.com/erenesto/interactive-password-validator"
+        href="https://github.com/MariusBongarts/medium-monorepo"
         target="_blank"
         rel="noreferrer"
       >
